@@ -1,9 +1,9 @@
+import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     java
     kotlin("jvm") version "1.4.0"
-    id("com.adarshr.test-logger") version "2.1.0"
     id("com.github.ben-manes.versions") version "0.29.0"
     id("se.patrikerdes.use-latest-versions") version "0.2.14"
 }
@@ -19,12 +19,10 @@ repositories {
 subprojects {
     apply {
         plugin("kotlin")
-        plugin("com.adarshr.test-logger")
     }
 
     repositories {
         jcenter()
-        mavenCentral()
         maven(url = "https://jitpack.io")
     }
 
@@ -51,6 +49,9 @@ subprojects {
     tasks.withType<Test> {
         failFast = true
         useJUnitPlatform()
+        testLogging {
+            events = setOf(TestLogEvent.PASSED, TestLogEvent.FAILED, TestLogEvent.SKIPPED)
+        }
     }
 
     sourceSets {
