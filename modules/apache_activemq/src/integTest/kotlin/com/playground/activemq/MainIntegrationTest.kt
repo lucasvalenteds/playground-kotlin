@@ -7,8 +7,22 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.fail
+import org.testcontainers.containers.GenericContainer
+import org.testcontainers.junit.jupiter.Container
+import org.testcontainers.junit.jupiter.Testcontainers
+import org.testcontainers.utility.DockerImageName
 
+@Testcontainers
 class MainIntegrationTest {
+
+    companion object {
+        private val dockerImageName = DockerImageName.parse("rmohr/activemq:5.15.6-alpine")
+
+        @Container
+        private val container: GenericContainer<*> = GenericContainer<Nothing>(dockerImageName).apply {
+            withExposedPorts(61616, 8161)
+        }
+    }
 
     private val connectionFactory = ActiveMQConnectionFactory("vm://localhost?broker.persistent=false")
 

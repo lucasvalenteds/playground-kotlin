@@ -4,7 +4,6 @@ plugins {
     java
     kotlin("jvm") version "1.4.0"
     id("com.adarshr.test-logger") version "2.1.0"
-    id("com.bmuschko.docker-remote-api") version "6.6.1"
     id("com.github.ben-manes.versions") version "0.29.0"
     id("se.patrikerdes.use-latest-versions") version "0.2.14"
 }
@@ -38,6 +37,8 @@ subprojects {
         testImplementation("org.assertj", "assertj-core", "3.17.2")
         testImplementation("io.mockk", "mockk", "1.10.0")
         testImplementation("org.junit.jupiter", "junit-jupiter", "5.7.0-M1")
+        testImplementation("org.testcontainers", "testcontainers", "1.15.0")
+        testImplementation("org.testcontainers", "junit-jupiter", "1.15.0")
     }
 
     tasks.withType<KotlinCompile> {
